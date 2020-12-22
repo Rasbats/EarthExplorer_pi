@@ -138,6 +138,9 @@ public:
 	double myDir;
 	MyCamera *MyCameraControl;
 	bool m_bShowCamera;
+	wxString m_sKmlFile;
+	wxString SetFileKML(wxString kmlFile);
+	wxString GetModelFile(wxString modelFile);
 
 protected:
 	bool m_bNeedsGrib;
@@ -223,6 +226,7 @@ private:
 	bool m_bInvalidPolarsFile;
 	bool m_bInvalidGribFile;
 	bool m_bEarthExplorerHasStarted;
+	
 
 };
 

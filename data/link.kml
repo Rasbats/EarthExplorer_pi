@@ -1,0 +1,11 @@
+<NetworkLink>
+<name>EarthExplorer</name>
+<open>1</open>
+<TimeStamp>
+	<when>2018−05−09T03:00:00Z</when>
+</TimeStamp><flyToView>1</flyToView>
+<Link><href>http://127.0.0.1:8887/placemark.kml/</href>
+	<refreshMode>onInterval</refreshMode>
+	<refreshInterval>0.0666</refreshInterval>
+</Link>
+</NetworkLink>

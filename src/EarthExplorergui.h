@@ -28,6 +28,7 @@
 #include <wx/dialog.h>
 #include <wx/checkbox.h>
 #include <wx/statbox.h>
+#include <wx/filepicker.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -52,7 +53,6 @@ class EarthExplorerBase : public wxDialog
 		wxStaticText* m_staticText8;
 		wxButton* m_buttonStandby;
 		wxButton* m_buttonAuto;
-		wxButton* m_buttonCamera;
 		wxButton* m_buttonWind;
 		wxButton* m_buttonMinus1;
 		wxButton* m_buttonMinus10;
@@ -82,6 +82,7 @@ class EarthExplorerBase : public wxDialog
 		wxStaticText* m_stHeading;
 		wxStaticText* m_stSpeed;
 		wxSlider* m_SliderSpeed;
+		wxButton* m_buttonCamera;
 		wxTimer m_timer1;
 
 		EarthExplorerBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxRESIZE_BORDER );
@@ -97,6 +98,7 @@ class EarthExplorerPreferences : public wxDialog
 	private:
 
 	protected:
+		wxStaticText* m_staticText8;
 		wxStdDialogButtonSizer* m_sdbSizer1;
 		wxButton* m_sdbSizer1OK;
 		wxButton* m_sdbSizer1Cancel;
@@ -105,6 +107,7 @@ class EarthExplorerPreferences : public wxDialog
 		wxCheckBox* m_cbTransmitAis;
 		wxCheckBox* m_cbAisToFile;
 		wxTextCtrl* m_textCtrlMMSI;
+		wxFilePickerCtrl* m_fileKML;
 
 		EarthExplorerPreferences( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxRESIZE_BORDER );
 		~EarthExplorerPreferences();

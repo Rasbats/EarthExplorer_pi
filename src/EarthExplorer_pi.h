@@ -144,9 +144,12 @@ public:
 	  double m_grib_lat, m_grib_lon;
 	  double m_tr_spd;
 	  double m_tr_dir;
+
+	  wxString m_sCopyKmlFile;
 	  
 private:
 
+	wxBitmap m_panelBitmap;
 	double m_cursor_lat;
 	double m_cursor_lon;
 
@@ -172,6 +175,7 @@ private:
 	  bool m_bCopyUseAis;
 	  bool m_bCopyUseFile;
 	  wxString m_tCopyMMSI;
+	  
 
 };
 

@@ -73,7 +73,9 @@ Dlg::Dlg(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 		pConf->Read(_T("earthexplorerUseAis"), &m_bUseAis, 0);
 		pConf->Read(_T("earthexplorerUseFile"), &m_bUseFile, 0);
 		pConf->Read(_T("earthexplorerMMSI"), &m_tMMSI, "12345");
+		pConf->Read(_T("placemarkFile"), &m_sKmlFile, "");
 	}
+	
 
 	MyCameraControl = NULL;
 }
@@ -129,19 +131,45 @@ void Dlg::SetFollowStep(double inLat, double inLon, double inDir, double inSpd, 
 		DistanceBearingMercator_Plugin(nextLat, nextLon, stepLat, stepLon, &followDir, &myDist);
 		PositionBearingDistanceMercator_Plugin(stepLat, stepLon, followDir, inSpd, &stepLat, &stepLon);
 		myDir = followDir;
-
-	}
-	
-
+	}	
 }
 
 void Dlg::OnStart(wxCommandEvent& event) {
 
-	
 	StartDriving();
 }
 
+
+wxString Dlg::SetFileKML(wxString kmlFile){
+
+	wxString kmlOut;
+	wxString stdPath(*GetpPrivateApplicationDataLocation());
+	wxString s = wxFileName::GetPathSeparator();
+
+	stdPath = stdPath + s + _T("plugins") + s + _T("EarthExplorer_pi");
+	if (!wxDirExists(stdPath))
+		wxMkdir(stdPath);
+	    stdPath += s + _T("data");
+	if (!wxDirExists(stdPath))
+		wxMkdir(stdPath);
+	kmlOut = stdPath + s + kmlFile;
+
+	return kmlOut;
+}
+
+wxString Dlg::GetModelFile(wxString modelFile) {
+
+	wxString locn = *GetpSharedDataLocation();
+	wxString s = wxFileName::GetPathSeparator();
+
+	wxString modelLocn = locn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s;
+	wxString myModel = modelLocn + modelFile;
+	return myModel;
+}
+
 void Dlg::StartDriving() {
+
+	m_sKmlFile = SetFileKML("placemark.kml");
 
 	if (initLat == 0.0){
 		wxMessageBox(_("Please right-click and choose vessel start position"));
@@ -324,6 +352,7 @@ void Dlg::OnClose(wxCloseEvent& event)
 		MyCameraControl->Close();
 	}
 	plugin->OnEarthExplorerDialogClose();
+	plugin->m_sCopyKmlFile = m_sKmlFile;
 }
 void Dlg::Notify()
 {
@@ -1421,29 +1450,7 @@ double Dlg::ReadNavobj() {
 
 wxString Dlg::StandardPath()
 {
-	wxStandardPathsBase& std_path = wxStandardPathsBase::Get();
-	wxString s = wxFileName::GetPathSeparator();
-
-#if defined(__WXMSW__)
-	wxString stdPath = std_path.GetConfigDir();
-#elif defined(__WXGTK__) || defined(__WXQT__)
-	wxString stdPath = std_path.GetUserDataDir();
-#elif defined(__WXOSX__)
-	wxString stdPath = (std_path.GetUserConfigDir() + s + _T("opencpn"));
-#endif
-
-
-#ifdef __WXOSX__
-	// Compatibility with pre-OCPN-4.2; move config dir to
-	// ~/Library/Preferences/opencpn if it exists
-	wxString oldPath = (std_path.GetUserConfigDir() + s);
-	if (wxDirExists(oldPath) && !wxDirExists(stdPath)) {
-		wxLogMessage("EarthExplorer_pi: moving config dir %s to %s", oldPath, stdPath);
-		wxRenameFile(oldPath, stdPath);
-	}
-#endif
-
-	stdPath += s; // is this necessary?
+	wxString stdPath(*GetpPrivateApplicationDataLocation());
 	return stdPath;
 }
 
@@ -1452,9 +1459,8 @@ void Dlg::WriteKML() {
 
 	m_Timer->Stop();
 
-	wxString filepath = "C:/Users/Mike/Documents/My_Google_Earth/placemark.kml";
 	wxFile myFile;
-	myFile.Create(filepath, true, 438);
+	myFile.Create(m_sKmlFile, true, 755);
 
 	double myPan = 0;
 	double myCameraDir = myDir;
@@ -1544,7 +1550,12 @@ void Dlg::WriteKML() {
 		myFile.Write("<z>1</z>");
 		myFile.Write("</Scale>");
 		myFile.Write("<Link>");
-		myFile.Write("<href>C:/Users/Mike/Documents/My_Google_Earth/container.dae</href>");
+
+		wxString modelFile = GetModelFile("container.dae");
+
+		myFile.Write("<href>");
+		myFile.Write(modelFile);		
+		myFile.Write("</href>");
 		myFile.Write("</Link>");
 		myFile.Write("</Model>");
 
@@ -1642,7 +1653,7 @@ MyCamera::MyCamera(wxWindow* parent, wxWindowID id, const wxString& title, const
 
 	gSizer2->Add(m_textCtrlTilt, 0, wxALIGN_CENTER_VERTICAL, 5);
 
-	m_staticText9 = new wxStaticText(this, wxID_ANY, _("Port  / Stbd"), wxDefaultPosition, wxDefaultSize, 0);
+	m_staticText9 = new wxStaticText(this, wxID_ANY, _("Pan    port/stbd"), wxDefaultPosition, wxDefaultSize, 0);
 	m_staticText9->Wrap(-1);
 	m_staticText9->SetFont(wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial")));
 
@@ -1763,7 +1774,11 @@ void MyCamera::OnChoiceRange(wxCommandEvent& event) {
 void MyCamera::OnReset(wxCommandEvent& event) {
 
 	m_sliderPan->SetValue(0);
+	m_textCtrlPan->SetValue("0");
+	
 	m_sliderTilt->SetValue(60);
+	m_textCtrlTilt->SetValue("60");
+
 	m_choiceRange->SetSelection(4);
 
 }

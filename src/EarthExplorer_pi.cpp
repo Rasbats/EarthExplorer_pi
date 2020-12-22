@@ -76,6 +76,18 @@ EarthExplorer_pi::EarthExplorer_pi(void *ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();
+
+	  wxString shareLocn = *GetpSharedDataLocation() +
+		  _T("plugins") + wxFileName::GetPathSeparator() +
+		  _T("EarthExplorer_pi") + wxFileName::GetPathSeparator()
+		  + _T("data") + wxFileName::GetPathSeparator();
+	  wxImage panelIcon(shareLocn + _T("earthexplorer_panel_icon.png"));
+	  if (panelIcon.IsOk())
+		  m_panelBitmap = wxBitmap(panelIcon);
+	  else
+		  wxLogMessage(_T("Earth Explorer panel icon NOT loaded"));
+
+
 	  m_bShowEarthExplorer = false;	  
 }
 
@@ -215,7 +227,7 @@ int EarthExplorer_pi::GetPlugInVersionMinor()
 
 wxBitmap *EarthExplorer_pi::GetPlugInBitmap()
 {
-      return _img_EarthExplorerIcon;
+      return &m_panelBitmap;
 }
 
 wxString EarthExplorer_pi::GetCommonName()
@@ -255,16 +267,21 @@ void EarthExplorer_pi::ShowPreferencesDialog(wxWindow* parent)
 	Pref->m_cbAisToFile->SetValue(m_bCopyUseFile);
 	Pref->m_textCtrlMMSI->SetValue(m_tCopyMMSI);
 
+	Pref->m_fileKML->SetFileName(m_sCopyKmlFile);
+	
+
 	if (Pref->ShowModal() == wxID_OK) {
 		
 		bool copyAis = Pref->m_cbTransmitAis->GetValue();
 		bool copyFile = Pref->m_cbAisToFile->GetValue();
 		wxString copyMMSI = Pref->m_textCtrlMMSI->GetValue();
+		wxString copyKmlFile = Pref->m_fileKML->GetPath();
 
-		if (m_bCopyUseAis != copyAis || m_bCopyUseFile != copyFile || m_tCopyMMSI != copyMMSI) {
+		if (m_bCopyUseAis != copyAis || m_bCopyUseFile != copyFile || m_tCopyMMSI != copyMMSI || m_sCopyKmlFile != copyKmlFile) {
 			m_bCopyUseAis = copyAis;
 			m_bCopyUseFile = copyFile;
 			m_tCopyMMSI = copyMMSI;
+			m_sCopyKmlFile = copyKmlFile;
 		}
 
 		if (m_pDialog)
@@ -272,6 +289,8 @@ void EarthExplorer_pi::ShowPreferencesDialog(wxWindow* parent)
 			m_pDialog->m_bUseAis = m_bCopyUseAis;
 			m_pDialog->m_bUseFile = m_bCopyUseFile;
 			m_pDialog->m_tMMSI = m_tCopyMMSI;
+			m_pDialog->m_sKmlFile = m_sCopyKmlFile;
+
 		}
 		
 		SaveConfig();
@@ -338,8 +357,9 @@ bool EarthExplorer_pi::LoadConfig(void)
             pConf->SetPath ( _T( "/Settings/EarthExplorer_pi" ) );
 			pConf->Read ( _T( "ShowEarthExplorerIcon" ), &m_bEarthExplorerShowIcon, 1 );
 			pConf->Read(_T("earthexplorerUseAis"), &m_bCopyUseAis, 0);
-			pConf->Read(_T("earthexplorerUseFile"), &m_bCopyUseFile, 0);
 			m_tCopyMMSI = pConf->Read(_T("earthexplorerMMSI"), _T("12345"));
+			pConf->Read(_T("placemarkFile"), &m_sCopyKmlFile, "");
+
 
             m_hr_dialog_x =  pConf->Read ( _T ( "DialogPosX" ), 40L );
             m_hr_dialog_y =  pConf->Read ( _T ( "DialogPosY" ), 140L);
@@ -369,8 +389,8 @@ bool EarthExplorer_pi::SaveConfig(void)
             pConf->SetPath ( _T ( "/Settings/EarthExplorer_pi" ) );
 			pConf->Write ( _T ( "ShowEarthExplorerIcon" ), m_bEarthExplorerShowIcon );
 			pConf->Write(_T("earthexplorerUseAis"), m_bCopyUseAis);
-			pConf->Write(_T("earthexplorerUseFile"), m_bCopyUseFile);
 			pConf->Write(_T("earthexplorerMMSI"), m_tCopyMMSI);
+			pConf->Write(_T("placemarkFile"), m_sCopyKmlFile);
 
             pConf->Write ( _T ( "DialogPosX" ),   m_hr_dialog_x );
             pConf->Write ( _T ( "DialogPosY" ),   m_hr_dialog_y );

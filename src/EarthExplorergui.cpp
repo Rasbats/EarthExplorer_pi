@@ -326,6 +326,19 @@ EarthExplorerPreferences::EarthExplorerPreferences( wxWindow* parent, wxWindowID
 
 	sbSizer1->Add( sbSizer2, 1, wxEXPAND, 5 );
 
+	wxStaticBoxSizer* sbSizer21;
+	sbSizer21 = new wxStaticBoxSizer( new wxStaticBox( sbSizer1->GetStaticBox(), wxID_ANY, _("Google Earth") ), wxVERTICAL );
+
+	m_staticText8 = new wxStaticText( sbSizer21->GetStaticBox(), wxID_ANY, _("KML placemark file"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText8->Wrap( -1 );
+	sbSizer21->Add( m_staticText8, 0, wxALL, 5 );
+
+	m_fileKML = new wxFilePickerCtrl( sbSizer21->GetStaticBox(), wxID_ANY, wxEmptyString, _("Select a file"), _("*.*"), wxDefaultPosition, wxDefaultSize, wxFLP_DEFAULT_STYLE );
+	sbSizer21->Add( m_fileKML, 0, wxALL, 5 );
+
+
+	sbSizer1->Add( sbSizer21, 1, wxEXPAND, 5 );
+
 	m_sdbSizer1 = new wxStdDialogButtonSizer();
 	m_sdbSizer1OK = new wxButton( sbSizer1->GetStaticBox(), wxID_OK );
 	m_sdbSizer1->AddButton( m_sdbSizer1OK );
