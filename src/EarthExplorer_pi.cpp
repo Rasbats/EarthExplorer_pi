@@ -144,7 +144,7 @@ int EarthExplorer_pi::Init(void)
     }
 	wxMenu dummy_menu;
 	m_position_menu_id = AddCanvasContextMenuItem
-		(new wxMenuItem(&dummy_menu, -1, _("Select Vessel Start Position")), this);
+		(new wxMenuItem(&dummy_menu, -1, _("Earth Explorer Start Position")), this);
 	SetCanvasContextMenuItemViz(m_position_menu_id, true);
 
 
