@@ -140,7 +140,8 @@ public:
 	bool m_bShowCamera;
 	wxString m_sKmlFile;
 	wxString SetFileKML(wxString kmlFile);
-	wxString GetModelFile(wxString modelFile);
+	void SetModelFile(wxString modelFile);
+	void SetLinkFile(wxString kmlFile);
 
 protected:
 	bool m_bNeedsGrib;

@@ -157,19 +157,42 @@ wxString Dlg::SetFileKML(wxString kmlFile){
 	return kmlOut;
 }
 
-wxString Dlg::GetModelFile(wxString modelFile) {
+void Dlg::SetModelFile(wxString modelFile) {
 
-	wxString locn = *GetpSharedDataLocation();
 	wxString s = wxFileName::GetPathSeparator();
+	wxString modelLocn = *GetpSharedDataLocation() +
+		"plugins" + s + "EarthExplorer_pi" + s + "data" + s + modelFile;
+	
+	wxString newLocn = *GetpPrivateApplicationDataLocation();
+	
 
-	wxString modelLocn = locn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s;
-	wxString myModel = modelLocn + modelFile;
-	return myModel;
+	wxString newModelLocn = newLocn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s + modelFile;
+	if (!wxFileExists(newModelLocn)) {
+		wxCopyFile(modelLocn, newModelLocn, true);
+	}
+}
+
+void Dlg::SetLinkFile(wxString kmlFile) {
+
+	wxString s = wxFileName::GetPathSeparator();
+	wxString kmlLocn = *GetpSharedDataLocation() +
+		"plugins" + s + "EarthExplorer_pi" + s + "data" + s + kmlFile;
+
+	wxString newLocn = *GetpPrivateApplicationDataLocation();
+
+
+	wxString newKmlLocn = newLocn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s + kmlFile;
+	if (!wxFileExists(newKmlLocn)) {
+		wxCopyFile(kmlLocn, newKmlLocn, true);
+	}
 }
 
 void Dlg::StartDriving() {
 
 	m_sKmlFile = SetFileKML("placemark.kml");
+	SetModelFile("container.dae");
+	SetLinkFile("link.kml");
+
 
 	if (initLat == 0.0){
 		wxMessageBox(_("Please right-click and choose vessel start position"));
@@ -1460,7 +1483,7 @@ void Dlg::WriteKML() {
 	m_Timer->Stop();
 
 	wxFile myFile;
-	myFile.Create(m_sKmlFile, true, 755);
+	myFile.Create(m_sKmlFile, true, 438);
 
 	double myPan = 0;
 	double myCameraDir = myDir;
@@ -1551,7 +1574,7 @@ void Dlg::WriteKML() {
 		myFile.Write("</Scale>");
 		myFile.Write("<Link>");
 
-		wxString modelFile = GetModelFile("container.dae");
+		wxString modelFile = "http://127.0.0.1:8887/container.dae";  // GetModelFile("container.dae");
 
 		myFile.Write("<href>");
 		myFile.Write(modelFile);		

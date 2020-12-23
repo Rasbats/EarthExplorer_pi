@@ -57,7 +57,6 @@ SET(SRC_EarthExplorer
 	    src/EarthExplorergui_impl.cpp
 	    src/EarthExplorergui_impl.h
 		src/ocpn_plugin.h
-		src/folder.xpm
 		src/AisMaker.h
 		src/AisMaker.cpp
 		src/GribRecord.cpp

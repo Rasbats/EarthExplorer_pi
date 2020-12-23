@@ -35,7 +35,6 @@
 #include "EarthExplorergui_impl.h"
 #include "EarthExplorergui.h"
 #include "ocpn_plugin.h" 
-#include "folder.xpm"
 
 class EarthExplorer_pi;
 class Dlg;
