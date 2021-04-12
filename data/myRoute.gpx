@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gpx version="1.1" creator="RTZroute_pi by Rasbats" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns:opencpn="http://www.opencpn.org">
+    <rte>
+        <name>myRoute</name>
+        <extensions>
+            <opencpn:start>Start</opencpn:start>
+            <opencpn:end>End</opencpn:end>
+            <opencpn:planned_speed>6.00</opencpn:planned_speed>
+        </extensions>
+        <rtept lat="50.628596" lon="-0.494760">
+            <name>001</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>1</opencpn:viz>
+                <opencpn:radius>0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603028" lon="-0.850942">
+            <name>2</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>1</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603028" lon="-0.850951">
+            <name>3</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.602974" lon="-0.851862">
+            <name>4</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.602939" lon="-0.852776">
+            <name>5</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.602925" lon="-0.853692">
+            <name>6</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.602931" lon="-0.854607">
+            <name>7</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.602957" lon="-0.855522">
+            <name>8</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603003" lon="-0.856435">
+            <name>9</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603070" lon="-0.857344">
+            <name>10</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603157" lon="-0.858250">
+            <name>11</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603264" lon="-0.859150">
+            <name>12</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603390" lon="-0.860044">
+            <name>13</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603537" lon="-0.860930">
+            <name>14</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603703" lon="-0.861807">
+            <name>15</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.603888" lon="-0.862675">
+            <name>16</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.604092" lon="-0.863532">
+            <name>17</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.604315" lon="-0.864378">
+            <name>18</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.604557" lon="-0.865210">
+            <name>19</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.604817" lon="-0.866029">
+            <name>20</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.605095" lon="-0.866833">
+            <name>21</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.605391" lon="-0.867621">
+            <name>22</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.605704" lon="-0.868393">
+            <name>23</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.606034" lon="-0.869147">
+            <name>24</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>0</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.606137" lon="-0.869335">
+            <name>25</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>1</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+        <rtept lat="50.662508" lon="-0.990778">
+            <name>003</name>
+            <sym>diamond</sym>
+            <type>WPT</type>
+            <extensions>
+                <opencpn:viz>1</opencpn:viz>
+                <opencpn:radius>0.0</opencpn:radius>
+            </extensions>
+        </rtept>
+    </rte>
+</gpx>
