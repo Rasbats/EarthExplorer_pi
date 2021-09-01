@@ -1,5 +1,4 @@
-
-== EarthExplorer
+= EarthExplorer
 
 New legacy plugin to drive Google Earth (GE).
 
@@ -80,7 +79,7 @@ Using Options->Ship the `Ship icon type' can be changed to `real scale
 vector'. A panamax container ship has length 292m, beam 30m. GPS is
 approx 270m from the bow and midships.
 
-=== Closing Google Earth
+== Closing Google Earth
 
 *Important*. Do not save the temporary places when you close GE. You
 need to repeat the startup procedure listed above when you open GE
