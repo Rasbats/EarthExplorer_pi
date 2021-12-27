@@ -8,7 +8,6 @@
 #include "icons.h"
 
 wxBitmap *_img_EarthExplorerIcon;
-bool m_managedPlugin;
 
 
 #ifdef PLUGIN_USE_SVG
@@ -24,27 +23,14 @@ void initialize_images(void)
 		_img_EarthExplorerIcon = new wxBitmap(wxImage(sm));
 	}
 
-#ifdef MANAGED_PLUGIN
-	m_managedPlugin = true;
-#else
-	m_managedPlugin = false;
-#endif
-
 #ifdef PLUGIN_USE_SVG
     wxFileName fn;
 	wxString tmp_path;
-	if (m_managedPlugin) {
-		tmp_path = GetPluginDataDir("earthexplorer_pi");
-		fn.SetPath(tmp_path);
-		fn.AppendDir(_T("data"));
-	}
-	else {
-		fn.SetPath(*GetpSharedDataLocation());
-		fn.AppendDir(_T("plugins"));
-		fn.AppendDir(_T("earthexplorer_pi"));
-		fn.AppendDir(_T("data"));
-	}
 
+    tmp_path = GetPluginDataDir("earthexplorer_pi");
+	fn.SetPath(tmp_path);
+	fn.AppendDir(_T("data"));
+	
     fn.SetFullName(_T("earthexplorer_pi.svg"));
     _svg_earthexplorer = fn.GetFullPath();
     fn.SetFullName(_T("earthexplorer_pi_toggled.svg"));

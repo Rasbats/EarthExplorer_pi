@@ -44,19 +44,13 @@
 #include <wx/datetime.h>
 #include "GribRecordSet.h"
 #include <wx/tokenzr.h>
+#include "config.h"
 
 // Define minimum and maximum versions of the grib plugin supported
 #define GRIB_MAX_MAJOR 4
 #define GRIB_MAX_MINOR 1
 #define GRIB_MIN_MAJOR 4
 #define GRIB_MIN_MINOR 1
-
-
-#define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    3
-
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    6
 
 class Dlg;
 

@@ -73,18 +73,31 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 EarthExplorer_pi::EarthExplorer_pi(void *ppimgr)
       :opencpn_plugin_16 (ppimgr)
 {
-      // Create the PlugIn icons
-      initialize_images();
+    // Create the PlugIn icons
+    initialize_images();
 
-	  wxString shareLocn = *GetpSharedDataLocation() +
-		  _T("plugins") + wxFileName::GetPathSeparator() +
-		  _T("EarthExplorer_pi") + wxFileName::GetPathSeparator()
-		  + _T("data") + wxFileName::GetPathSeparator();
-	  wxImage panelIcon(shareLocn + _T("earthexplorer_panel_icon.png"));
-	  if (panelIcon.IsOk())
-		  m_panelBitmap = wxBitmap(panelIcon);
-	  else
-		  wxLogMessage(_T("Earth Explorer panel icon NOT loaded"));
+	wxFileName fn;
+
+	auto path = GetPluginDataDir("EarthExplorer_pi");
+
+	fn.SetPath(path);
+	fn.AppendDir("data");
+    fn.SetFullName("earthexplorer_panel_icon.png");
+
+	path = fn.GetFullPath();
+
+	wxInitAllImageHandlers();
+
+    wxLogDebug(wxString("Using icon path: ") + path);
+    if (!wxImage::CanRead(path)) {
+        wxLogDebug("Initiating image handlers.");
+        wxInitAllImageHandlers();
+    }
+    wxImage panelIcon(path);
+    if (panelIcon.IsOk())
+        m_panelBitmap = wxBitmap(panelIcon);
+    else
+		wxLogMessage(_T("Earth Explorer panel icon NOT loaded"));
 
 
 	  m_bShowEarthExplorer = false;	  
@@ -206,12 +219,14 @@ bool EarthExplorer_pi::DeInit(void)
 
 int EarthExplorer_pi::GetAPIVersionMajor()
 {
-      return MY_API_VERSION_MAJOR;
+    return atoi(API_VERSION);
 }
 
 int EarthExplorer_pi::GetAPIVersionMinor()
 {
-      return MY_API_VERSION_MINOR;
+    std::string v(API_VERSION);
+    size_t dotpos = v.find('.');
+    return atoi(v.substr(dotpos + 1).c_str());
 }
 
 int EarthExplorer_pi::GetPlugInVersionMajor()
@@ -253,7 +268,9 @@ int EarthExplorer_pi::GetToolbarToolCount(void)
 void EarthExplorer_pi::SetColorScheme(PI_ColorScheme cs)
 {
       if (NULL == m_pDialog)
-            return;
+            return;        delete Pref;
+        Pref = NULL;
+
 
       DimeWindow(m_pDialog);
 }
@@ -296,6 +313,10 @@ void EarthExplorer_pi::ShowPreferencesDialog(wxWindow* parent)
 
 		RequestRefresh(m_parent_window); // refresh main window
 	}
+
+	delete Pref;
+    Pref = NULL;
+
 
 }
 
