@@ -1,79 +1,114 @@
-##---------------------------------------------------------------------------
-## Author:      Rasbats aka. Mike Rossiter
-## Copyright:
-## License:     wxWidgets License
-##---------------------------------------------------------------------------
+# ~~~
+# Summary:      Main plugin build script
+# Copyright (c) 2020-2021 Mike Rossiter
+# License:      GPLv3+
+# ~~~
 
-# define minimum cmake version
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
 
-PROJECT(EarthExplorer_pi)
-
-SET(PACKAGE_NAME EarthExplorer_pi)
-SET(VERBOSE_NAME EarthExplorer)
-SET(TITLE_NAME EarthExplorer)
-SET(CPACK_PACKAGE_CONTACT "Mike Rossiter")
-
-SET(VERSION_MAJOR "0")
-SET(VERSION_MINOR "3")
-
-SET(VERSION_DATE "2020-05-09")
-SET(OCPN_MIN_VERSION "ov50")
-
-set (CMAKE_CXX_STANDARD 11)
-
-#SET(CMAKE_BUILD_TYPE Debug)
-SET( wxWidgets_USE_DEBUG OFF)
-SET( wxWidgets_USE_UNICODE ON)
-SET( wxWidgets_USE_UNIVERSAL OFF)
-SET( wxWidgets_USE_STATIC OFF)
+# -------- Cmake setup ---------
+#
+cmake_minimum_required(VERSION 3.12.0)
+include(${CMAKE_SOURCE_DIR}/cmake/CmakeSetup.cmake NO_POLICY_SCOPE)
+message(STATUS "Cmake version: ${CMAKE_VERSION}.")
 
 
-OPTION(PLUGIN_USE_SVG "Use SVG graphics" ON)
-# For OpenCPN version 5.x, NOT 5.0 ON. For version 5.0 OFF
-OPTION(MANAGED_PLUGIN "Use managed plugin" OFF)
+# -------- Build setup  --------
+#
+include(PluginOptions)
+if (BUILD_TYPE)
+  message(STATUS "Building: ${BUILD_TYPE}")
+else ()
+  message(STATUS "Configuring")
+endif ()
 
+include(Plugin.cmake)
 
-INCLUDE("cmake/PluginConfigure.cmake")
-INCLUDE("cmake/PluginJSON.cmake")
+# -------- Setup completed, build the plugin --------
+#
+project(${PKG_NAME} VERSION ${PKG_VERSION})
+include(PluginCompiler)
 
-IF(PLUGIN_USE_SVG)
-  ADD_DEFINITIONS(-DPLUGIN_USE_SVG)
-ENDIF(PLUGIN_USE_SVG)
+add_library(${CMAKE_PROJECT_NAME} SHARED ${SRC})
+include_directories(BEFORE ${CMAKE_BINARY_DIR}/include)
 
-include(CheckCXXCompilerFlag)
-check_cxx_compiler_flag(-std=c++11 HAS_STD_CPP11_FLAG)
-if(HAS_STD_CPP11_FLAG)
-  add_compile_options(-std=c++11)
-endif()
+add_subdirectory("libs/${PKG_API_LIB}")
+target_link_libraries(${CMAKE_PROJECT_NAME} ocpn::api)
 
-SET(SRC_EarthExplorer
-        src/EarthExplorer_pi.h
-        src/EarthExplorer_pi.cpp
-        src/icons.h
-        src/icons.cpp
-	    src/EarthExplorergui.h
-	    src/EarthExplorergui.cpp
-	    src/EarthExplorergui_impl.cpp
-	    src/EarthExplorergui_impl.h
-		src/ocpn_plugin.h
-		src/AisMaker.h
-		src/AisMaker.cpp
-		src/GribRecord.cpp
-		src/GribRecordSet.h
-		src/GribRecord.h
-	    src/tinyxml.h
-		src/tinyxml.cpp
-	    src/tinyxmlerror.cpp
-		src/tinyxmlparser.cpp		
-	)
+set(VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
+set(PACKAGE_NAME ${CMAKE_PROJECT_NAME})
 
-ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_EarthExplorer} ${SRC_JSON}
+# Create the minimim ocpn version id string like ov50
+string(REGEX REPLACE "\([0-9]\)\.\([0-9]\).*" "ov\\1\\2"
+       OCPN_MIN_VERSION ${API_OCPN_MIN_VERSION})
+
+if (COMMAND late_init)
+  late_init()
+endif ()
+
+# Set up targets. Targets sets up new targets with BUILD_TYPE set to
+# 'flatpak', 'android' or 'tarball'. The initial call without BUILD_TYPE ends
+# here.
+#
+file(GLOB FLATPAK_MANIFEST
+  ${PROJECT_SOURCE_DIR}/flatpak/org.opencpn.OpenCPN.Plugin.*.yaml
+)
+include(Targets)
+create_targets(${FLATPAK_MANIFEST})
+if ("${BUILD_TYPE}" STREQUAL "")
+  return ()
+endif ()
+
+if (NOT ${BUILD_TYPE} STREQUAL "flatpak")
+  # Build package as required (flatpak already dealt with).
+  #
+  include(PluginInstall)
+  if (QT_ANDROID)
+    include(AndroidLibs)
+  else ()
+    include(PluginLibs)
+  endif ()
+  include(PluginLocalization)
+
+  include_directories(BEFORE ${CMAKE_BINARY_DIR}/include)
+
+  if (COMMAND add_plugin_libraries)
+    add_plugin_libraries()
+  endif ()
+
+  if (EXISTS "libs/jsoncpp" AND NOT TARGET ocpn::jsoncpp)
+    add_subdirectory("libs/jsoncpp")
+    target_link_libraries(${PACKAGE_NAME} ocpn::jsoncpp)
+  endif ()
+
+endif ()
+
+configure_file(
+  ${CMAKE_SOURCE_DIR}/config.h.in ${CMAKE_BINARY_DIR}/include//config.h
+  @ONLY
 )
 
-ADD_DEFINITIONS(-DTIXML_USE_STL)
+configure_file(
+  # The cloudsmith upload script
+  ${CMAKE_SOURCE_DIR}/ci/upload.sh.in ${CMAKE_BINARY_DIR}/upload.sh
+  @ONLY
+)
+configure_file(
+  # The cloudsmith upload script, windows bat file.
+  ${CMAKE_SOURCE_DIR}/ci/upload.bat.in ${CMAKE_BINARY_DIR}/upload.bat
+  @ONLY
+)
 
-INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginLocalization.cmake")
-INCLUDE("cmake/PluginPackage.cmake")
+set(checksum "@checksum@")
+configure_file(
+  # The XML metadata file
+  ${CMAKE_SOURCE_DIR}/plugin.xml.in
+  ${CMAKE_BINARY_DIR}/${pkg_displayname}.xml.in
+  @ONLY
+)
