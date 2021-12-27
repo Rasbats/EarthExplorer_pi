@@ -39,8 +39,8 @@
 
 #include "ocpn_plugin.h" //Required for OCPN plugin functions
 #include "EarthExplorergui_impl.h"
-#include "jsoncpp/json/reader.h"
-#include "jsoncpp/json/writer.h"
+#include "json/reader.h"
+#include "json/writer.h"
 #include <wx/datetime.h>
 #include "GribRecordSet.h"
 #include <wx/tokenzr.h>
@@ -140,10 +140,11 @@ public:
 	  double m_tr_dir;
 
 	  wxString m_sCopyKmlFile;
-	  
+	  wxBitmap m_panelBitmap;
+
 private:
 
-	wxBitmap m_panelBitmap;
+	
 	double m_cursor_lat;
 	double m_cursor_lon;
 

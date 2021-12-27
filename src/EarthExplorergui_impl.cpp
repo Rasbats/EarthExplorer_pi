@@ -68,7 +68,7 @@ Dlg::Dlg(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& 
 	wxFileConfig *pConf = GetOCPNConfigObject();
 
 	if (pConf) {
-		pConf->SetPath(_T("/Settings/EarthExplorer_pi"));
+		pConf->SetPath(_T("/PlugIns/EarthExplorer_pi"));
 
 		pConf->Read(_T("earthexplorerUseAis"), &m_bUseAis, 0);
 		pConf->Read(_T("earthexplorerUseFile"), &m_bUseFile, 0);
@@ -159,13 +159,19 @@ wxString Dlg::SetFileKML(wxString kmlFile){
 
 void Dlg::SetModelFile(wxString modelFile) {
 
-	wxString s = wxFileName::GetPathSeparator();
-	wxString modelLocn = *GetpSharedDataLocation() +
-		"plugins" + s + "EarthExplorer_pi" + s + "data" + s + modelFile;
+	wxFileName fn;
+    wxString tmp_path;
+
+    tmp_path = GetPluginDataDir("EarthExplorer_pi");
+    fn.SetPath(tmp_path);
+    fn.AppendDir(_T("data"));
+	wxString fnPath = fn.GetFullPath();
 	
+	wxString s = wxFileName::GetPathSeparator();
+	wxString modelLocn = fnPath + s + modelFile;
+
 	wxString newLocn = *GetpPrivateApplicationDataLocation();
 	
-
 	wxString newModelLocn = newLocn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s + modelFile;
 	if (!wxFileExists(newModelLocn)) {
 		wxCopyFile(modelLocn, newModelLocn, true);
@@ -174,12 +180,18 @@ void Dlg::SetModelFile(wxString modelFile) {
 
 void Dlg::SetLinkFile(wxString kmlFile) {
 
+	wxFileName fn;
+    wxString tmp_path;
+
+    tmp_path = GetPluginDataDir("EarthExplorer_pi");
+    fn.SetPath(tmp_path);
+    fn.AppendDir(_T("data"));
+	wxString fnPath = fn.GetFullPath();
+	
 	wxString s = wxFileName::GetPathSeparator();
-	wxString kmlLocn = *GetpSharedDataLocation() +
-		"plugins" + s + "EarthExplorer_pi" + s + "data" + s + kmlFile;
+	wxString kmlLocn = fnPath + s + kmlFile;
 
 	wxString newLocn = *GetpPrivateApplicationDataLocation();
-
 
 	wxString newKmlLocn = newLocn + s + "plugins" + s + "EarthExplorer_pi" + s + "data" + s + kmlFile;
 	if (!wxFileExists(newKmlLocn)) {

@@ -41,11 +41,10 @@
 #include <cmath>
 #include <wx/stdpaths.h>
 #include "wx/process.h"
-#include "jsoncpp/json/reader.h"
-#include "jsoncpp/json/writer.h"
+#include "json/reader.h"
+#include "json/writer.h"
 #include <wx/thread.h>
 #include "tinyxml.h"
-#include "tinystr.h"
 #include <wx/filedlg.h>
 #include "ocpn_plugin.h"
 #include <wx/listctrl.h>

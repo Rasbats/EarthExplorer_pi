@@ -114,7 +114,7 @@ EarthExplorer_pi::~EarthExplorer_pi(void)
 
 		 if (pConf) {
 
-			 pConf->SetPath(_T("/Settings/otidalroute"));
+			 pConf->SetPath(_T("/PlugIns/EarthExplorer_pi"));
 
 			 pConf->Write(_T("earthexplorerUseAis"), m_bCopyUseAis);
 			 pConf->Write(_T("earthexplorerUseFile"), m_bCopyUseFile);
@@ -268,9 +268,7 @@ int EarthExplorer_pi::GetToolbarToolCount(void)
 void EarthExplorer_pi::SetColorScheme(PI_ColorScheme cs)
 {
       if (NULL == m_pDialog)
-            return;        delete Pref;
-        Pref = NULL;
-
+            return;        
 
       DimeWindow(m_pDialog);
 }
@@ -374,7 +372,7 @@ bool EarthExplorer_pi::LoadConfig(void)
 
       if(pConf)
       {
-            pConf->SetPath ( _T( "/Settings/EarthExplorer_pi" ) );
+            pConf->SetPath ( _T( "/PlugIns/EarthExplorer_pi" ) );
 			pConf->Read ( _T( "ShowEarthExplorerIcon" ), &m_bEarthExplorerShowIcon, 1 );
 			pConf->Read(_T("earthexplorerUseAis"), &m_bCopyUseAis, 0);
 			m_tCopyMMSI = pConf->Read(_T("earthexplorerMMSI"), _T("12345"));
@@ -406,7 +404,7 @@ bool EarthExplorer_pi::SaveConfig(void)
 
       if(pConf)
       {
-            pConf->SetPath ( _T ( "/Settings/EarthExplorer_pi" ) );
+            pConf->SetPath ( _T ( "/PlugIns/EarthExplorer_pi" ) );
 			pConf->Write ( _T ( "ShowEarthExplorerIcon" ), m_bEarthExplorerShowIcon );
 			pConf->Write(_T("earthexplorerUseAis"), m_bCopyUseAis);
 			pConf->Write(_T("earthexplorerMMSI"), m_tCopyMMSI);
