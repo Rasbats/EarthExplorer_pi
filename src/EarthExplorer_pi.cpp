@@ -71,7 +71,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 
 
 EarthExplorer_pi::EarthExplorer_pi(void *ppimgr)
-      :opencpn_plugin_16 (ppimgr)
+      :opencpn_plugin_116 (ppimgr)
 {
     // Create the PlugIn icons
     initialize_images();
@@ -85,8 +85,6 @@ EarthExplorer_pi::EarthExplorer_pi(void *ppimgr)
     fn.SetFullName("earthexplorer_panel_icon.png");
 
 	path = fn.GetFullPath();
-
-	wxInitAllImageHandlers();
 
     wxLogDebug(wxString("Using icon path: ") + path);
     if (!wxImage::CanRead(path)) {

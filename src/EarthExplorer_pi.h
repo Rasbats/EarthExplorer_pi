@@ -82,7 +82,7 @@ static inline bool GribCurrent(GribRecordSet *grib, double lat, double lon,
 
 #define EarthExplorer_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class EarthExplorer_pi : public opencpn_plugin_16
+class EarthExplorer_pi : public opencpn_plugin_116
 {
 public:
       EarthExplorer_pi(void *ppimgr);
