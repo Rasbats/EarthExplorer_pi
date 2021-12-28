@@ -373,6 +373,8 @@ bool EarthExplorer_pi::LoadConfig(void)
             pConf->SetPath ( _T( "/PlugIns/EarthExplorer_pi" ) );
 			pConf->Read ( _T( "ShowEarthExplorerIcon" ), &m_bEarthExplorerShowIcon, 1 );
 			pConf->Read(_T("earthexplorerUseAis"), &m_bCopyUseAis, 0);
+			pConf->Read(_T("earthexplorerUseFile"), &m_bCopyUseFile, 0);
+
 			m_tCopyMMSI = pConf->Read(_T("earthexplorerMMSI"), _T("12345"));
 			pConf->Read(_T("placemarkFile"), &m_sCopyKmlFile, "");
 
@@ -405,6 +407,8 @@ bool EarthExplorer_pi::SaveConfig(void)
             pConf->SetPath ( _T ( "/PlugIns/EarthExplorer_pi" ) );
 			pConf->Write ( _T ( "ShowEarthExplorerIcon" ), m_bEarthExplorerShowIcon );
 			pConf->Write(_T("earthexplorerUseAis"), m_bCopyUseAis);
+			pConf->Write(_T("earthexplorerUseFile"), m_bCopyUseFile);
+
 			pConf->Write(_T("earthexplorerMMSI"), m_tCopyMMSI);
 			pConf->Write(_T("placemarkFile"), m_sCopyKmlFile);
 
