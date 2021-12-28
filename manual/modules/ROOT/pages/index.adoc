@@ -12,26 +12,36 @@ camera position. The autopilot can be used. A sample GPX is included.
 This is a route through the new locks at the southern end of the Panama
 Canal. The default model to drive is a panamax container ship.
 
-*Plugin Install*
+*Links*
 
-Install the plugin in the normal way for a legacy plugin.
+* https://github.com/Rasbats/EarthExplorer_pi/[EarthExplorer_pi source]
+* https://www.cruisersforum.com/forums/f134/earthexplorer-a-new-beta-244186.html[OpenCPN forum plugin EarthExplorer_pi]
+
+== Plugin Install
+
+The plugin can be installed by updating the OpenCPN master catalog and using the EarthExplorer_pi entry.
 
 *Extra requirements*
 
-At the moment the Google Chrome Web Server extension is used to serve
+The Google Chrome Web Server extension is used to serve
 the KML files used by GE. Chrome is cross-platform and can be used on
 MacOSX, Linux and Windows.
 
-* Install Google Chrome (if not already installed)
+* Install https://www.google.com/intl/en_uk/chrome/[Google Chrome] (if not already installed)
 * Start Chrome
-* Add the webserver extension
-* Start the webserver. After this the Chrome Browser can be shut down.
-It does not have to be the default browser
+* Dowload the webserver extension from https://chrome.google.com/webstore/d...mlocgigb?hl=en[here.] Add the extension to Chrome.
 
-On first starting to drive with EarthExplorer the files to link with GE
-are copied to the GetpPrivateApplicationDataLocation() directory. On
-Windows this will be similar to **C:_pi* . On Linux it will be like
-*home/.opencpn/plugins/EarthExplorer_pi/data*.
+image::chrome1.jpg[]
+
+* Start the EarthExplorer plugin. Right-Click on the chart and you will find a menu option _EarthExplorer Start Position_. After selecting this press *Start* and test driving the ship and using the controls.
+
+image::ee1.jpg[]
+
+image::ee2.jpg[]
+
+image::ee3.jpg[]
+
+On first starting to drive with EarthExplorer the files to link with GE are copied to the _GetpPrivateApplicationDataLocation()_ directory. On Windows this will be similar to _C:\ProgramData\opencpn\plugins\EarthExplorer_pi_. On Linux it will be like _home/.opencpn/plugins/EarthExplorer_pi/data_.
 
 If not already installed download and install Google Earth Pro:
 https://www.google.com/earth/download/gep/agree.html
@@ -42,40 +52,78 @@ Not sure if the version available from Paul Higgins is compatible.
 
 *Start the Chrome Web Server*
 
-It displays with a button to choose the default folder. Select the
-GetpPrivateApplicationDataLocation() folder mentioned above.
+image::chrome2.jpg[]
 
-*Start OpenCPN*
+After this the Chrome Browser can be shut down.
+It does not have to be the default browser
 
-Start your OpenCPN and enable EarthExplorer. Start the plugin to test
-the drive function is working. Very similar to ShipDriver (!!!). Testing
-will have created a `placemark.kml' file in the
-GetpPrivateApplicationDataLocation() folder along with the model file
-`container.dae'. Another file is also copied there … `link.kml'. This
+The webserver displays with a button to choose the default folder. Select the
+_GetpPrivateApplicationDataLocation()_ directory mentioned above.
+
+image::chrome3.jpg[]
+
+Testing the plugin will have created a _placemark.kml_ file in the
+_GetpPrivateApplicationDataLocation()_ directory along with the model file
+_container.dae_. Another file is also copied there … _link.kml_. This
 provides the network link with GE.
 
-*Start Google Earth*
+*Make the OpenCPN connection*
+
+Select _Options->Connections_ in OpenCPN. _Add Connection_. Use TCP Network Address 127.0.0.1 and port 8887.
+
+image::connections.jpg[]
+
+== Start Google Earth
 
 *File->Open* and select `placemark.kml' from the same folder as you set
 up in the Chrome webserver. * GE should fly to the location of your
 vessel. You should see the model in the centre of the GE display. * A
-place called `model' will have been added to GE `Temporary Places'.
+place called _model_ will have been added to GE _Temporary Places_.
 
-*File->Open* and select `link.kml'. This will add a place `Earth
-Explorer' to `Temporary Places'. One of the contents of this place is
-`model'.
+*File->Open* and select _link.kml_. This will add a place _Earth
+Explorer_ to _Temporary Places_. One of the contents of this place is
+_model_.
+
+image::ge1.jpg[]
+
+**Note**
+Using _File->Open_ may cause Google Earth to freeze. If this happens you may need to open the files by using Windows Explorer. Navigate to the _ProgramData/opencpn/plugins/EarthExplorer_pi_ directory and open the file with GE.
+
+image::ge.0.jpg[]
+
+If there have been problems you may be asked to use the GE repair tool.
+
+image::ge.error.0.jpg[]
+
+Select _Clear disk cache_:
+
+image::ge.error.1.jpg[]
+
+After adding _placemark.kml_ you should see the ship on the GE screen.
+
+image::ge2.jpg[]
+
+And after adding _link.kml_:
+
+image::ge3.jpg[]
 
 Start driving the vessel in OpenCPN. You should see the model moving
-across the screen. If you can still see the model that was dropped when
-you opened `placemark.kml' you can de-select and delete that place, as
+across the screen. 
+
+image::ge4.jpg[]
+
+If you can still see the model that was dropped when
+you opened _placemark.kml_ you can de-select and delete that place, as
 it is no longer needed.
 
-Select the `3D Buildings' layer in GE if you want to see models. These
-show the bridges at the southern end of the Panama Canal.
+image::ge5.jpg[]
 
-Press `Camera' if you want to zoom in or pan/tilt the display in GE.
+Select the `3D Buildings' layer in GE if you want to see models. For instance these include
+the bridges at the southern end of the Panama Canal.
 
-Using Options->Ship the `Ship icon type' can be changed to `real scale
+Press the plugin _Camera_ if you want to zoom in or pan/tilt the display in GE.
+
+Using OpenCPN _Options->Ship_ the `Ship icon type' can be changed to `real scale
 vector'. A panamax container ship has length 292m, beam 30m. GPS is
 approx 270m from the bow and midships.
 
