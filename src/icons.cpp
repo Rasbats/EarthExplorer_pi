@@ -9,7 +9,6 @@
 
 wxBitmap *_img_EarthExplorerIcon;
 
-
 #ifdef PLUGIN_USE_SVG
 #include "ocpn_plugin.h"
 wxString _svg_earthexplorer;
