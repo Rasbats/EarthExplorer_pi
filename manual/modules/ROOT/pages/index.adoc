@@ -1,6 +1,6 @@
 = EarthExplorer
 
-New legacy plugin to drive Google Earth (GE).
+Plugin to drive Google Earth (GE).
 
 image::plugin_icon.png[]
 
@@ -108,7 +108,7 @@ And after adding _link.kml_:
 image::ge3.jpg[]
 
 Start driving the vessel in OpenCPN. You should see the model moving
-across the screen. 
+across the screen.
 
 image::ge4.jpg[]
 
